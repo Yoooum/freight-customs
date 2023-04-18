@@ -6,3 +6,21 @@ spring:
     url: jdbc:mysql://localhost:3306/freight-customs?serverTimezone=Asia/Shanghai
     username: root
     password: 123456
+springdoc:
+  group-configs:
+    - group: 'default'
+      paths-to-match: '/**'
+      packages-to-scan: com.prprv.customs.controller
+logging:
+  level:
+    root: info
+  file:
+    name: ./logs/${spring.application.name}.log
+  pattern:
+    file: H %d{yyyy-MM-dd HH:mm:ss.SSS} %p %C.%M %m %n
+  logback:
+    rolling-policy:
+      file-name-pattern: ./logs/%d{yyyyMMdd}/${spring.application.name}.out.log.%d{yyyy-MM-dd}.%i.gz
+      max-history: 7
+      max-file-size: 4MB
+      total-size-cap: 1GB

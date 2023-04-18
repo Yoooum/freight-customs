@@ -22,6 +22,8 @@ repositories {
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'com.baomidou:mybatis-plus-boot-starter:3.5.3.1'
+    implementation 'com.github.xiaoymin:knife4j-openapi3-spring-boot-starter:4.1.0'
+    implementation 'org.springdoc:springdoc-openapi-ui:1.7.0'
     compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'com.mysql:mysql-connector-j'
     annotationProcessor 'org.projectlombok:lombok'
