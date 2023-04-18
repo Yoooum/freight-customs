@@ -16,7 +16,6 @@ public class Cargo {
     private String name;
     private Integer quantity;
     private Double weight;
-    private Double value;
     private String destination;
     private String status;
 }

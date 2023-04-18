@@ -1,49 +1,35 @@
--- 创建货物表
-CREATE TABLE cargo (
-  id BIGINT NOT NULL AUTO_INCREMENT,
-  name VARCHAR(255),
-  quantity INT,
-  weight DOUBLE,
-  value DOUBLE,
-  destination VARCHAR(255),
-  status VARCHAR(255),
-  PRIMARY KEY (id)
-);
+create table cargo
+(
+    id          bigint auto_increment comment '货物单号'
+        primary key,
+    name        varchar(255) not null comment '货物名称',
+    quantity    int          not null comment '货物数量',
+    weight      double       not null comment '货物重量',
+    destination varchar(255) not null comment '来源/目的地',
+    status      varchar(255) not null comment '货物状态'
+)
+    comment '货物表';
 
--- 创建客户表
-CREATE TABLE customer (
-  id BIGINT NOT NULL AUTO_INCREMENT,
-  name VARCHAR(255),
-  contact VARCHAR(255),
-  PRIMARY KEY (id)
-);
+create table customer
+(
+    id              bigint auto_increment comment '客户'
+        primary key,
+    name            varchar(255) not null comment '客户名称',
+    contact         varchar(255) not null comment '联系方式',
+    cargoid         bigint       not null comment '客户货物号(关联到Cargo表id)',
+    declarationNoid varchar(255) not null comment '报关单编号(关联到declaration表declarationNo)'
+)
+    comment '客户表';
 
--- 创建报关单表
-CREATE TABLE declaration (
-  id BIGINT NOT NULL AUTO_INCREMENT,
-  declaration_no VARCHAR(255),
-  cargo_id BIGINT,
-  declaration_time DATETIME,
-  status VARCHAR(255),
-  PRIMARY KEY (id)
-);
+create table declaration
+(
+    id              bigint auto_increment comment 'id'
+        primary key,
+    declarationNo   varchar(255) not null comment '报关单编号',
+    cargoId         bigint       null comment '关联到Cargo表的id',
+    type            varchar(255) not null comment '报关类型(入/出)',
+    declarationTime datetime     not null comment '报关时间',
+    status          varchar(255) not null comment '报关状态'
+)
+    comment '报关单表';
 
--- 创建订单表
-CREATE TABLE orders (
-  id BIGINT NOT NULL AUTO_INCREMENT,
-  order_no VARCHAR(255),
-  cargo_id BIGINT,
-  order_time DATETIME,
-  status VARCHAR(255),
-  PRIMARY KEY (id)
-);
-
--- 创建流程表
-CREATE TABLE process (
-  id BIGINT NOT NULL AUTO_INCREMENT,
-  cargo_id BIGINT,
-  operation_time DATETIME,
-  operator VARCHAR(255),
-  operation VARCHAR(255),
-  PRIMARY KEY (id)
-);
