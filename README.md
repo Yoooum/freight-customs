@@ -1,49 +1,50 @@
-### Cargo表：货物表
+## Cargo表：货物表
 
-| 列名        | 数据类型     | 说明     |
-| ----------- | ------------ | -------- |
-| id          | bigint       | 自增主键 |
-| name        | varchar(255) | 货物名称 |
-| quantity    | int          | 货物数量 |
-| weight      | double       | 货物重量 |
-| value       | double       | 货物价值 |
-| destination | varchar(255) | 目的地   |
-| status      | varchar(255) | 状态     |
+| 列名 | 数据类型 | 约束条件 | 说明 |
+| --- | --- | --- | --- |
+| id | BIGINT | PRIMARY KEY, AUTO_INCREMENT | 主键，自增长 |
+| name | VARCHAR(100) | NOT NULL | 货物名称 |
+| quantity | INT | NOT NULL | 数量 |
+| weight | DOUBLE | NOT NULL | 重量 |
+| value | DOUBLE | NOT NULL | 价值 |
+| destination | VARCHAR(100) | NOT NULL | 目的地 |
+| status | VARCHAR(50) | NOT NULL | 状态 |
 
-### Customer表：客户表
+## Customer表：客户表
 
-| 列名    | 数据类型     | 说明     |
-| ------- | ------------ | -------- |
-| id      | bigint       | 自增主键 |
-| name    | varchar(255) | 客户名称 |
-| contact | varchar(255) | 联系方式 |
+| 列名 | 数据类型 | 约束条件 | 说明 |
+| --- | --- | --- | --- |
+| id | BIGINT | PRIMARY KEY, AUTO_INCREMENT | 主键，自增长 |
+| name | VARCHAR(100) | NOT NULL | 客户名称 |
+| contact | VARCHAR(100) | NOT NULL | 客户联系方式 |
 
-### Declaration表：报关单表
+## Declaration表：报关单表
 
-| 列名            | 数据类型     | 说明                    |
-| --------------- | ------------ | ----------------------- |
-| id              | bigint       | 自增主键                |
-| declarationNo   | varchar(255) | 报关单号                |
-| cargoId         | bigint       | 关联到Cargo表的id |
-| declarationTime | datetime     | 报关时间                |
-| status          | varchar(255) | 报关状态                |
+| 列名 | 数据类型 | 约束条件 | 说明 |
+| --- | --- | --- | --- |
+| id | BIGINT | PRIMARY KEY, AUTO_INCREMENT | 主键，自增长 |
+| declaration_no | VARCHAR(100) | NOT NULL | 报关单号 |
+| cargo_id | BIGINT | NOT NULL | 关联的货物id |
+| declaration_time | DATETIME | NOT NULL | 报关时间 |
+| status | VARCHAR(50) | NOT NULL | 状态 |
 
-### Orders表：订单表
+## Orders表：订单表
 
-| 列名      | 数据类型     | 说明                    |
-| --------- | ------------ | ----------------------- |
-| id        | bigint       | 自增主键                |
-| orderNo   | varchar(255) | 订单号                  |
-| cargoId   | bigint       | 关联到Cargo表的id |
-| orderTime | datetime     | 下单时间                |
-| status    | varchar(255) | 订单状态                |
+| 列名 | 数据类型 | 约束条件 | 说明 |
+| --- | --- | --- | --- |
+| id | BIGINT | PRIMARY KEY, AUTO_INCREMENT | 主键，自增长 |
+| order_no | VARCHAR(100) | NOT NULL | 订单号 |
+| customer_id | BIGINT | NOT NULL | 关联的客户id |
+| cargo_id | BIGINT | NOT NULL | 关联的货物id |
+| order_time | DATETIME | NOT NULL | 订单时间 |
+| status | VARCHAR(50) | NOT NULL | 状态 |
 
-### Process表：流程表
+## Process表：流程表
 
-| 列名          | 数据类型     | 说明                    |
-| ------------- | ------------ | ----------------------- |
-| id            | bigint       | 自增主键                |
-| cargoId       | bigint       | 关联到Cargo表的id |
-| operationTime | datetime     | 操作时间                |
-| operator      | varchar(255) | 操作者                  |
-| operation     | varchar(255) | 操作类型                |
+| 列名 | 数据类型 | 约束条件 | 说明 |
+| --- | --- | --- | --- |
+| id | BIGINT | PRIMARY KEY, AUTO_INCREMENT | 主键，自增长 |
+| cargo_id | BIGINT | NOT NULL | 关联的货物id |
+| operation_time | DATETIME | NOT NULL | 操作时间 |
+| operator | VARCHAR(100) | NOT NULL | 操作人 |
+| operation | VARCHAR(100) | NOT NULL | 操作类型 |

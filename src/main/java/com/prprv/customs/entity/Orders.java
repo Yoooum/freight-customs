@@ -11,6 +11,7 @@ public class Orders {
 
     private Long id;
     private String orderNo;
+    private Long customerId;
     private Long cargoId;
     private LocalDateTime orderTime;
     private String status;
