@@ -2,6 +2,7 @@ package com.prprv.customs.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.prprv.customs.entity.Cargo;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
  *
@@ -10,5 +11,6 @@ import com.prprv.customs.entity.Cargo;
  * @version 1.0
  * @see Cargo
  */
+@Mapper
 public interface CargoMapper extends BaseMapper<Cargo> {
 }
