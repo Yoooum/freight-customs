@@ -12,7 +12,7 @@ import lombok.Getter;
 @Getter
 public enum ResultEnum {
     SUCCESS(200, "成功"),
-    ERROR(500, "失败"),
+    ERROR(500, "系统内部异常"),
     BAD_REQUEST(4000, "请求参数不合法或缺失"),
     CARGO_NOT_FOUND(4001, "没有找到指定的货物"),
     CUSTOMER_NOT_FOUND(4002, "没有找到指定的客户"),
