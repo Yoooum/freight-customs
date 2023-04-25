@@ -10,7 +10,7 @@ public class FreightCustomsApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(FreightCustomsApplication.class, args);
-        
+        log.info("启动成功：修改演示");
     }
 
 }
