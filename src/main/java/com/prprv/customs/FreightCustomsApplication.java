@@ -12,5 +12,4 @@ public class FreightCustomsApplication {
         SpringApplication.run(FreightCustomsApplication.class, args);
         log.info("FreightCustomsApplication started");
     }
-
 }
