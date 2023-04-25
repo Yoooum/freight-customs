@@ -12,5 +12,4 @@ public class FreightCustomsApplication {
         SpringApplication.run(FreightCustomsApplication.class, args);
         log.info("启动成功：修改演示");
     }
-
 }
