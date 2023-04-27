@@ -1,45 +1,51 @@
--- 创建货物表
-CREATE TABLE cargo (
-  id BIGINT AUTO_INCREMENT PRIMARY KEY,
-  name VARCHAR(100) NOT NULL,
-  quantity INT NOT NULL,
-  weight DOUBLE NOT NULL,
-  value DOUBLE NOT NULL,
-  destination VARCHAR(100) NOT NULL,
-  status VARCHAR(50) NOT NULL
+create table cargo
+(
+    id          bigint auto_increment
+        primary key,
+    name        varchar(255) null,
+    quantity    int          null,
+    weight      double       null,
+    value       double       null,
+    destination varchar(255) null,
+    status      varchar(255) null
 );
 
--- 创建客户表
-CREATE TABLE customer (
-  id BIGINT AUTO_INCREMENT PRIMARY KEY,
-  name VARCHAR(100) NOT NULL,
-  contact VARCHAR(100) NOT NULL
+create table customer
+(
+    id      bigint auto_increment
+        primary key,
+    name    varchar(255) null,
+    contact varchar(255) null
 );
 
--- 创建报关单表
-CREATE TABLE declaration (
-  id BIGINT AUTO_INCREMENT PRIMARY KEY,
-  declaration_no VARCHAR(100) NOT NULL,
-  cargo_id BIGINT NOT NULL,
-  declaration_time DATETIME NOT NULL,
-  status VARCHAR(50) NOT NULL
+create table declaration
+(
+    id               bigint auto_increment
+        primary key,
+    declaration_no   varchar(255) null,
+    cargo_id         bigint       null,
+    declaration_time datetime     null,
+    declaration_type varchar(50)  null,
+    status           varchar(255) null
 );
 
--- 创建订单表
-CREATE TABLE orders (
-  id BIGINT AUTO_INCREMENT PRIMARY KEY,
-  order_no VARCHAR(100) NOT NULL,
-  customer_id BIGINT NOT NULL,
-  cargo_id BIGINT NOT NULL,
-  order_time DATETIME NOT NULL,
-  status VARCHAR(50) NOT NULL
+create table orders
+(
+    id         bigint auto_increment
+        primary key,
+    order_no   varchar(255) null,
+    cargo_id   bigint       null,
+    order_time datetime     null,
+    status     varchar(255) null
 );
 
--- 创建流程表
-CREATE TABLE process (
-  id BIGINT AUTO_INCREMENT PRIMARY KEY,
-  cargo_id BIGINT NOT NULL,
-  operation_time DATETIME NOT NULL,
-  operator VARCHAR(100) NOT NULL,
-  operation VARCHAR(100) NOT NULL
+create table process
+(
+    id             bigint auto_increment
+        primary key,
+    cargo_id       bigint       null,
+    operation_time datetime     null,
+    operator       varchar(255) null,
+    operation      varchar(255) null
 );
+
