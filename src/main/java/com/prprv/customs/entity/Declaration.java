@@ -23,5 +23,6 @@ public class Declaration {
     private String declarationNo;
     private Long CargoId;
     private LocalDateTime declarationTime;
+    private String declarationType;
     private String status;
 }
