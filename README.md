@@ -26,6 +26,7 @@
 | declaration_no | VARCHAR(100) | NOT NULL | 报关单号 |
 | cargo_id | BIGINT | NOT NULL | 关联的货物id |
 | declaration_time | DATETIME | NOT NULL | 报关时间 |
+| declaration_type | varchar(50) | NOT NULL | 报关类型 |
 | status | VARCHAR(50) | NOT NULL | 状态 |
 
 ## Orders表：订单表

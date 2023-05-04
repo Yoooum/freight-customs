@@ -5,5 +5,6 @@ package com.prprv.customs.service;
  * @author phj233
  * @since 2023/4/23 9:08
  */
-public interface ClearanceService {
+public interface ClearanceService extends CommonService{
+
 }

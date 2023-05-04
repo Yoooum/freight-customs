@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
@@ -13,6 +14,7 @@ import java.time.LocalDateTime;
  */
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 @TableName("declaration")
 public class Declaration {
 
@@ -21,5 +23,6 @@ public class Declaration {
     private String declarationNo;
     private Long CargoId;
     private LocalDateTime declarationTime;
+    private String declarationType;
     private String status;
 }
