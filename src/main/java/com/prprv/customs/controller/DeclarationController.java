@@ -27,7 +27,7 @@ public class DeclarationController {
      * @see DeclarationService#createGoods(Cargo)
      */
     @PostMapping("/createGoods")
-    public Result<Object> createGoods(Cargo cargo) {
+    public Result<Object> createGoods(@RequestBody Cargo cargo) {
         try {
             return declarationService.createGoods(cargo);
         } catch (Exception e) {
@@ -37,12 +37,13 @@ public class DeclarationController {
 
     /**
      * 申报货物
-     * @param id 货物id
+     * @param id 货物id must be a number
      * @return Result
      * @see DeclarationService#declareGoods(Long)
      */
-    @GetMapping("/declareGoods?id={id}")
-    public Result<Object> declareGoods(@PathVariable Long id) {
+    @GetMapping("/declareGoods")
+    public Result<Object> declareGoods(@RequestParam(value = "id") Long id) {
+        System.out.println(id);
         try {
             return declarationService.declareGoods(id);
         } catch (Exception e) {
@@ -52,15 +53,46 @@ public class DeclarationController {
 
     /**
      * 创建订单
-     * @param cargoId 货物id
-     * @param customerId 客户id
+     * @param cargoId 货物id must be a number
+     * @param customerId 客户id must be a number
      * @return Result
      * @see DeclarationService#createOrder(Long, Long)
      */
-    @GetMapping("/createOrder?cargoId={cargoId}&customerId={customerId}")
-    public Result<Object> createOrder(@PathVariable Long cargoId, @PathVariable Long customerId) {
+    @GetMapping("/createOrder")
+    public Result<Object> createOrder(@RequestParam(value = "cargoId") Long cargoId, @RequestParam(value = "customerId") Long customerId) {
         try {
             return declarationService.createOrder(cargoId, customerId);
+        } catch (Exception e) {
+            return ResultUtil.error(ResultEnum.ERROR, e.getMessage());
+        }
+    }
+
+    /**
+     * 分页查询报关单
+     * 默认页码1 每页2条
+     * @param page 页码
+     * @param size 每页大小
+     * @return Result
+     * @see DeclarationService#findDeclaration(Integer, Integer)
+     */
+    @GetMapping("/findDeclaration")
+    public Result<Object> findDeclaration(@RequestParam(value = "page", defaultValue = "0") Integer page,
+                                    @RequestParam(value = "size", defaultValue = "2") Integer size) {
+        try {
+            return declarationService.findDeclaration(page, size);
+        } catch (Exception e) {
+            return ResultUtil.error(ResultEnum.ERROR, e.getMessage());
+        }
+    }
+    /**
+     * 查询所有报关单
+     * @return Result
+     * @see DeclarationService#findAllDeclaration()
+     */
+    @GetMapping("/findAllDeclaration")
+    public Result<Object> findAllDeclaration() {
+        try {
+            return declarationService.findAllDeclaration();
         } catch (Exception e) {
             return ResultUtil.error(ResultEnum.ERROR, e.getMessage());
         }

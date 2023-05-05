@@ -1,5 +1,7 @@
 package com.prprv.customs.service;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.prprv.customs.common.result.Result;
 import com.prprv.customs.common.result.ResultEnum;
 import com.prprv.customs.common.result.ResultUtil;
@@ -10,6 +12,7 @@ import com.prprv.customs.mapper.CargoMapper;
 import com.prprv.customs.mapper.DeclarationMapper;
 import com.prprv.customs.mapper.OrdersMapper;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -23,6 +26,7 @@ import java.time.format.DateTimeFormatter;
  */
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class DeclarationServiceImpl implements DeclarationService{
     final private CargoMapper cargoMapper;
     final private DeclarationMapper declarationMapper;
@@ -38,6 +42,7 @@ public class DeclarationServiceImpl implements DeclarationService{
             cargoMapper.insert(cargo);
             return ResultUtil.success(ResultEnum.SUCCESS);
         } catch (Exception e) {
+            log.error(e.getMessage());
             return ResultUtil.error(ResultEnum.ERROR, e.getMessage());
         }
     }
@@ -50,22 +55,29 @@ public class DeclarationServiceImpl implements DeclarationService{
      */
     @Override
     public Result<Object> declareGoods(Long cargoId) {
-      try {
-          //根据日期时间生成declarationNo，格式为：年月日时分秒,为一串数字
-          String declarationNo =cargoId + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
-          //创建申报单
-          Declaration declaration = new Declaration();
-            declaration.setDeclarationNo(declarationNo);
-            declaration.setCargoId(cargoId);
-            declaration.setStatus("已申报");
-            //更新货物状态
-            cargoMapper.selectById(cargoId).setStatus("已申报");
-            //插入申报单
-            declarationMapper.insert(declaration);
-            return ResultUtil.success(declaration);
-      }catch (Exception e){
-          return ResultUtil.error(ResultEnum.ERROR, e.getMessage());
-      }
+        QueryWrapper<Declaration> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("cargo_id", cargoId);
+        if (declarationMapper.selectOne(queryWrapper) != null) {
+            return ResultUtil.error(ResultEnum.ERROR, "该货物已申报");
+        }
+          try {
+              //根据日期时间生成declarationNo，格式为：年月日时分秒,为一串数字
+              String declarationNo =cargoId + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
+              //创建申报单
+              Declaration declaration = new Declaration();
+                declaration.setDeclarationNo(declarationNo);
+                declaration.setDeclarationTime(LocalDateTime.now());
+                declaration.setCargoId(cargoId);
+                declaration.setStatus("已申报");
+                //更新货物状态
+                cargoMapper.selectById(cargoId).setStatus("已申报");
+                //插入申报单
+                declarationMapper.insert(declaration);
+                return ResultUtil.success(declaration);
+          }catch (Exception e){
+              log.error(e.getMessage());
+              return ResultUtil.error(ResultEnum.ERROR, e.getMessage());
+          }
     }
 
     /**
@@ -93,6 +105,41 @@ public class DeclarationServiceImpl implements DeclarationService{
             ordersMapper.insert(orders);
             return ResultUtil.success(orders);
         }catch (Exception e){
+            log.error(e.getMessage());
+            return ResultUtil.error(ResultEnum.ERROR, e.getMessage());
+        }
+    }
+
+    /**
+     * 查询申报单-海关工作人员查询申报单信息，返回申报单信息列表。
+     * @param page 当前页
+     * @param size 每页显示条数
+     * @return Result
+     * @see Declaration
+     */
+    @Override
+    public Result<Object> findDeclaration(Integer page, Integer size) {
+        try {
+            Page<Declaration> declarationPage = new Page<>(page, size);
+            Page<Declaration> selectPage = declarationMapper.selectPage(declarationPage, null);
+            return ResultUtil.success(selectPage);
+        }catch (Exception e){
+            log.error(e.getMessage());
+            return ResultUtil.error(ResultEnum.ERROR, e.getMessage());
+        }
+    }
+
+    /**
+     * 查询所有申报单-海关工作人员查询所有申报单信息，返回申报单信息列表。
+     * @return Result
+     * @see Declaration
+     */
+    @Override
+    public Result<Object> findAllDeclaration() {
+        try {
+            return ResultUtil.success(declarationMapper.selectList(null));
+        }catch (Exception e){
+            log.error(e.getMessage());
             return ResultUtil.error(ResultEnum.ERROR, e.getMessage());
         }
     }
