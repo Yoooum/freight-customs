@@ -1,19 +1,18 @@
 package com.prprv.customs.service;
 
-
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.prprv.customs.entity.Customer;
 import com.prprv.customs.mapper.CustomerMapper;
+import jakarta.annotation.Resource;
 import org.apache.logging.log4j.util.Strings;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class CustomerServiceImpl extends ServiceImpl<CustomerMapper, Customer> implements CustomerService {
-    @Autowired
+    @Resource
     private CustomerMapper customerMapper;
 
     // 查询所有的分页
