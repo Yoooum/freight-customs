@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface CargoService extends IService<Cargo> {
-     public IPage<Cargo> getPage(int currentPage, int pageSize);
-     public IPage<Cargo> getPage(int currentPage, int pageSize,Cargo cargo);
+     IPage<Cargo> getPage(int currentPage, int pageSize);
+     IPage<Cargo> getPage(int currentPage, int pageSize,Cargo cargo);
 
 }
