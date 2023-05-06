@@ -18,15 +18,15 @@
 3. 客户下单并支付，订单信息被记录到orders表中，并将对应货物记录的状态更新为“待出库”。
 
    ```sql
-   INSERT INTO orders(order_no, customer_id, cargo_id, order_time, status) VALUES('订单号', 1, 1, NOW(), '待出库');
-   UPDATE cargo SET status = '待出库' WHERE id = 1;
+   INSERT INTO orders(order_no, customer_id, cargo_id, order_time, status) VALUES('订单号', 1, 1, NOW(), '待出关');
+   UPDATE cargo SET status = '待出关' WHERE id = 1;
    ```
 
-4. 货物出库，海关工作人员创建出库操作记录，插入process表中，并将对应货物记录的状态更新为“已出库”。
+4. 货物出关，海关工作人员创建出库操作记录，插入process表中，并将对应货物记录的状态更新为“已出关”。
 
    ```sql
    INSERT INTO process(cargo_id, operation_time, operator, operation) VALUES(1, NOW(), '出库操作人', '出库');
-   UPDATE cargo SET status = '已出库' WHERE id = 1;
+   UPDATE cargo SET status = '已出关' WHERE id = 1;
    ```
 
 以上是简单的入关流程，实际流程可能会更复杂，需要根据实际情况进行设计和实现。
