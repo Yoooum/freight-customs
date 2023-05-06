@@ -59,7 +59,7 @@ public class DeclarationServiceImpl implements DeclarationService{
         queryWrapper.eq("cargo_id", cargoId);
         if (declarationMapper.selectOne(queryWrapper) != null) {
             queryWrapper.clear();
-            return ResultUtil.error(ResultEnum.ERROR, "该货物已申报");
+            return ResultUtil.error(ResultEnum.DUPLICATE_DECLARATION);
         }
           try {
               //根据日期时间生成declarationNo，格式为：年月日时分秒,为一串数字
@@ -71,8 +71,10 @@ public class DeclarationServiceImpl implements DeclarationService{
                 declaration.setCargoId(cargoId);
                 declaration.setStatus("已申报");
                 //更新货物状态
-                cargoMapper.selectById(cargoId).setStatus("已申报");
-                //插入申报单
+                Cargo cargo = cargoMapper.selectById(cargoId);
+                cargo.setStatus("已申报");
+                cargoMapper.updateById(cargo);
+              //插入申报单
                 declarationMapper.insert(declaration);
                 return ResultUtil.success(declaration);
           }catch (Exception e){
@@ -101,7 +103,9 @@ public class DeclarationServiceImpl implements DeclarationService{
             orders.setOrderTime(LocalDateTime.now());
             orders.setStatus("待出库");
             //更新货物状态
-            cargoMapper.selectById(cargoId).setStatus("待出关");
+            Cargo cargo = cargoMapper.selectById(cargoId);
+            cargo.setStatus("待出关");
+            cargoMapper.updateById(cargo);
             //插入订单
             ordersMapper.insert(orders);
             return ResultUtil.success(orders);

@@ -36,7 +36,8 @@ public class DeclarationController {
     }
 
     /**
-     * 申报货物, 申报后货物状态变为已申报
+     * 申报货物
+     * 申报后货物状态变为已申报
      * @param id 货物id must be a number
      * @return Result
      * @see DeclarationService#declareGoods(Long)
@@ -52,7 +53,8 @@ public class DeclarationController {
     }
 
     /**
-     * 创建订单, 创建订单后货物状态变为待出关
+     * 创建订单
+     * 创建订单后货物状态变为待出关
      * @param cargoId 货物id must be a number
      * @param customerId 客户id must be a number
      * @return Result
