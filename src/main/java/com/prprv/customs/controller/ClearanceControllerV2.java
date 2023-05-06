@@ -3,8 +3,8 @@ package com.prprv.customs.controller;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.prprv.customs.entity.Cargo;
 import com.prprv.customs.service.CargoService;
+import jakarta.annotation.Resource;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,7 +21,7 @@ import java.util.List;
 @RequestMapping("/clearance/v2")
 public class ClearanceControllerV2 {
     //自动注入service层
-    @Autowired
+    @Resource
     private CargoService cargoService;
 
     //查询一条数据

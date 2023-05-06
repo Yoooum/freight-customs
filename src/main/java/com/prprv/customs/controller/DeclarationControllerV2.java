@@ -1,15 +1,10 @@
 package com.prprv.customs.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.prprv.customs.common.result.Result;
-import com.prprv.customs.common.result.ResultEnum;
-import com.prprv.customs.common.result.ResultUtil;
-import com.prprv.customs.entity.Cargo;
 import com.prprv.customs.entity.Customer;
 import com.prprv.customs.service.CustomerService;
-import com.prprv.customs.service.DeclarationService;
+import jakarta.annotation.Resource;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,7 +20,7 @@ import java.util.List;
 @RequestMapping("/declaration/v2")
 public class DeclarationControllerV2 {
     //自动注入service层
-    @Autowired
+    @Resource
     private CustomerService customerService;
 
     //查询一条数据
