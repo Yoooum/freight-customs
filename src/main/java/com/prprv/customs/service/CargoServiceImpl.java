@@ -7,13 +7,13 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.prprv.customs.entity.Cargo;
 import com.prprv.customs.mapper.CargoMapper;
 
+import jakarta.annotation.Resource;
 import org.apache.logging.log4j.util.Strings;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class CargoServiceImpl extends ServiceImpl<CargoMapper, Cargo> implements CargoService {
-    @Autowired
+    @Resource
     private CargoMapper cargoMapper;
 
     // 查询所有的分页
