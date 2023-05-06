@@ -58,6 +58,7 @@ public class DeclarationServiceImpl implements DeclarationService{
         QueryWrapper<Declaration> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("cargo_id", cargoId);
         if (declarationMapper.selectOne(queryWrapper) != null) {
+            queryWrapper.clear();
             return ResultUtil.error(ResultEnum.ERROR, "该货物已申报");
         }
           try {
@@ -100,7 +101,7 @@ public class DeclarationServiceImpl implements DeclarationService{
             orders.setOrderTime(LocalDateTime.now());
             orders.setStatus("待出库");
             //更新货物状态
-            cargoMapper.selectById(cargoId).setStatus("待出库");
+            cargoMapper.selectById(cargoId).setStatus("待出关");
             //插入订单
             ordersMapper.insert(orders);
             return ResultUtil.success(orders);
